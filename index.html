@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia Creator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
 
     <style>
         .customBox {
             padding: 5px 5px !important;
         }
 
-        .customButton{
+        .customButton {
             padding: 9px 18px !important;
         }
 
@@ -21,6 +23,21 @@
             max-height: 560px;
         }
 
+        .shadow {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .loginBtn {
+            padding: 5px 15px !important;
+            border-radius: 15px !important;
+        }
+
+        .toggleBtn {
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+        }
+
         @media screen and (max-width: 767px) {
             .mainBox {
                 margin: 22px;
@@ -28,7 +45,7 @@
                 max-height: max-content;
             }
 
-            .navbarMain{
+            .navbarMain {
                 flex-direction: column;
             }
         }
@@ -41,51 +58,61 @@
         }
     </style>
 </head>
+
 <body>
-    <nav class="navbar has-background-black p-3 is-flex is-align-items-center is-justify-content-space-between navbarMain">
+    <nav
+        class="navbar has-background-black p-3 is-flex is-align-items-center is-justify-content-space-between navbarMain shadow">
         <div class="navbar-brand is-flex is-align-items-center">
             <h1 class="title has-text-white">✨ TRIVIA <span class="tag is-info">CREATOR</span></h1>
         </div>
         <div class="navbar-end">
             <div class="buttons">
-                <button class="button is-light">Login</button>
-                <button class="button is-primary">Mode</button>
+                <button class="button is-light loginBtn">Login</button>
+                <button class="button toggleBtn" id="theme-toggle">
+                    <i id="theme-icon" class="fa-regular fa-sun"></i>
+                </button>
             </div>
         </div>
     </nav>
-    
+
     <div class="container mt-5">
         <div class="box has-background-grey-dark p-3 mainBox">
             <p class="title is-size-5 has-text-white has-text-centered">
-                A kid’s entire family gets eaten, but instead of moving to a normal city job, he decides to grab a sword and hunt down the Michael Jackson-looking guy responsible.
+                A kid’s entire family gets eaten, but instead of moving to a normal city job, he decides to grab a sword
+                and hunt down the Michael Jackson-looking guy responsible.
             </p>
-            
+
             <div class="is-flex is-justify-content-center">
-                <img src="assets/images/premium_photo-1698238184346-30d7ba135959.avif" alt="Knights Fighting" class="image is-4by3" style="max-width: 300px;max-height: 200px;">
+                <img src="/assets/images/premium_photo-1698238184346-30d7ba135959.avif" alt="Knights Fighting"
+                    class="image is-4by3" style="max-width: 300px;max-height: 200px;">
             </div>
-            
+
             <div class="columns is-multiline mt-1 is-tablet">
                 <div class="column is-6-tablet is-6">
                     <div class="box has-background-dark has-text-white is-flex is-align-items-center customBox">
-                        <button class="button is-danger has-text-white is-size-3 p-3 customButton" style="border-radius: 8px;">A</button>
+                        <button class="button is-danger has-text-white is-size-3 p-3 customButton"
+                            style="border-radius: 8px;">A</button>
                         <span class="ml-2 is-size-6">Tokyo Ghoul</span>
                     </div>
                 </div>
                 <div class="column is-6-tablet is-6">
                     <div class="box has-background-dark has-text-white is-flex is-align-items-center customBox">
-                        <button class="button is-warning has-text-white is-size-3 p-3 customButton" style="border-radius: 8px;">B</button>
+                        <button class="button is-warning has-text-white is-size-3 p-3 customButton"
+                            style="border-radius: 8px;">B</button>
                         <span class="ml-2 is-size-6">Demon Slayer</span>
                     </div>
                 </div>
                 <div class="column is-6-tablet is-6">
                     <div class="box has-background-dark has-text-white is-flex is-align-items-center customBox">
-                        <button class="button is-info has-text-white is-size-3 p-3 customButton" style="border-radius: 8px;">C</button>
+                        <button class="button is-info has-text-white is-size-3 p-3 customButton"
+                            style="border-radius: 8px;">C</button>
                         <span class="ml-2 is-size-6">Blue Exorcist</span>
                     </div>
                 </div>
                 <div class="column is-6-tablet is-6">
                     <div class="box has-background-dark has-text-white is-flex is-align-items-center customBox">
-                        <button class="button has-background-purple has-text-white is-size-3 p-3 customButton" style="border-radius: 8px;">D</button>
+                        <button class="button is-link has-text-white is-size-3 p-3 customButton"
+                            style="border-radius: 8px;">D</button>
                         <span class="ml-2 is-size-6">Black Clover</span>
                     </div>
                 </div>
@@ -96,5 +123,136 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+        // Theme Toggle Functionality 1
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.getElementById("theme-toggle");
+            const themeIcon = document.getElementById("theme-icon");
+            const html = document.documentElement;
+            const navbar = document.querySelector(".navbar");
+            const title = document.querySelector(".title");
+            const mainBox = document.querySelector(".mainBox");
+            const answerBoxes = document.querySelectorAll(".columns .box");
+            const questionText = document.querySelector(".mainBox p");
+
+            function setTheme(theme) {
+                html.setAttribute("data-theme", theme);
+                localStorage.setItem("bulma-theme", theme);
+
+                // Toggle icon (🌙/☀)
+                themeIcon.classList.replace(theme === "dark" ? "fa-sun" : "fa-moon", theme === "dark" ? "fa-moon" : "fa-sun");
+
+                // Navbar styles
+                navbar.classList.toggle("has-background-black", theme === "dark");
+                navbar.classList.toggle("has-background-white", theme === "light");
+                navbar.classList.toggle("shadow", theme === "light");
+
+                title.classList.toggle("has-text-white", theme === "dark");
+                title.classList.toggle("has-text-black", theme === "light");
+
+                // Main Box styles
+                mainBox.classList.toggle("has-background-grey-dark", theme === "dark");
+                mainBox.classList.toggle("has-text-white", theme === "dark");
+                mainBox.classList.toggle("has-background-white", theme === "light");
+                mainBox.classList.toggle("has-text-black", theme === "light");
+                mainBox.classList.toggle("shadow", theme === "light");
+
+                // Answer Boxes (Ye dark hi rahenge)
+                answerBoxes.forEach(box => {
+                    box.classList.toggle("has-background-dark", theme === "dark");
+                    box.classList.toggle("has-text-white", theme === "dark");
+                    box.classList.toggle("has-background-white", theme === "light");
+                    box.classList.toggle("has-text-black", theme === "light");
+                });
+
+                // Question Text
+                questionText.classList.toggle("has-text-white", theme === "dark");
+                questionText.classList.toggle("has-text-black", theme === "light");
+            }
+
+            toggleButton.addEventListener("click", function () {
+                const currentTheme = html.getAttribute("data-theme");
+                setTheme(currentTheme === "light" ? "dark" : "light");
+            });
+
+            // Default mode: Dark
+            setTheme(localStorage.getItem("bulma-theme") || "dark");
+        });
+
+        // Theme Toggle Functionality 2
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     const toggleButton = document.getElementById("theme-toggle");
+        //     const html = document.documentElement;
+        //     const navbar = document.querySelector(".navbar");
+        //     const title = document.querySelector(".title");
+        //     const mainBox = document.querySelector(".mainBox");
+        //     const answerBoxes = document.querySelectorAll(".box"); // Answer boxes
+        //     const questionText = document.querySelector(".mainBox p"); // Question text
+
+        //     function setTheme(theme) {
+        //         html.setAttribute("data-theme", theme);
+        //         localStorage.setItem("bulma-theme", theme);
+
+        //         if (theme === "dark") {
+        //             // Navbar
+        //             navbar.classList.add("has-background-black");
+        //             navbar.classList.remove("has-background-white", "shadow");
+
+        //             title.classList.add("has-text-white");
+        //             title.classList.remove("has-text-black");
+
+        //             // Main box (Question area)
+        //             mainBox.classList.add("has-background-grey-dark", "has-text-white");
+        //             mainBox.classList.remove("has-background-white", "has-text-black", "shadow");
+
+        //             // Answer boxes stay dark
+        //             answerBoxes.forEach(box => {
+        //                 box.classList.add("has-background-dark", "has-text-white");
+        //                 box.classList.remove("has-background-white", "has-text-black");
+        //             });
+
+        //             // Question text stays white
+        //             questionText.classList.add("has-text-white");
+        //             questionText.classList.remove("has-text-black");
+
+        //         } else {
+        //             // Navbar
+        //             navbar.classList.add("has-background-white", "shadow");
+        //             navbar.classList.remove("has-background-black");
+
+        //             title.classList.add("has-text-black");
+        //             title.classList.remove("has-text-white");
+
+        //             // Main box (Question area) - White with a shadow
+        //             mainBox.classList.add("has-background-white", "has-text-black", "shadow");
+        //             mainBox.classList.remove("has-background-grey-dark", "has-text-white");
+
+        //             // Answer boxes turn white with black text
+        //             answerBoxes.forEach(box => {
+        //                 box.classList.add("has-background-white", "has-text-black");
+        //                 box.classList.remove("has-background-dark", "has-text-white");
+        //             });
+
+        //             // Question text turns black
+        //             questionText.classList.add("has-text-black");
+        //             questionText.classList.remove("has-text-white");
+        //         }
+        //     }
+
+        //     toggleButton.addEventListener("click", function () {
+        //         const currentTheme = html.getAttribute("data-theme");
+        //         const newTheme = currentTheme === "light" ? "dark" : "light";
+        //         setTheme(newTheme);
+        //     });
+
+        //     // Load saved theme from localStorage
+        //     const savedTheme = localStorage.getItem("bulma-theme") || "dark";
+        //     setTheme(savedTheme);
+        // });
+    </script>
 </body>
+
 </html>
