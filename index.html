@@ -38,15 +38,50 @@
             box-shadow: none !important;
         }
 
+        .navbar-brand img {
+            width: 240px;
+            max-width: 100%;
+        }
+
+        .mainboxImg img {
+            width: 300px;
+            max-height: 200px;
+        }
+
+        @media screen and (max-width: 400px) {
+            .mainboxImg img {
+                width: 100%;
+                height: 200px;
+            }
+        }
+
         @media screen and (max-width: 767px) {
             .mainBox {
-                margin: 22px;
+                margin-inline: 22px;
+                margin-top: 80px;
                 max-width: 100%;
                 max-height: max-content;
             }
 
+            .navbar-brand img {
+                width: 180px;
+                max-width: 100%;
+            }
+
             .navbarMain {
-                flex-direction: column;
+                flex-wrap: wrap;
+            }
+
+            .customBox {
+                padding: 3px 5px !important;
+            }
+
+            .customButton {
+                padding: 1px 14px !important;
+            }
+
+            .column {
+                padding: 5px 15px !important;
             }
         }
 
@@ -61,13 +96,14 @@
 
 <body>
     <nav
-        class="navbar has-background-black p-3 is-flex is-align-items-center is-justify-content-space-between navbarMain shadow">
+        class="navbar has-background-black is-flex p-1 is-align-items-center is-justify-content-space-between navbarMain shadow">
         <div class="navbar-brand is-flex is-align-items-center">
-            <h1 class="title has-text-white">✨ TRIVIA <span class="tag is-info">CREATOR</span></h1>
+            <img src="/assets/images/triviacreator-logo.svg" alt="logo">
+            <!-- <h1 class="title has-text-white">✨ TRIVIA <span class="tag is-info">CREATOR</span></h1> -->
         </div>
-        <div class="navbar-end">
+        <div class="navbar-end ">
             <div class="buttons">
-                <button class="button is-light loginBtn">Login</button>
+                <button class="button is-dark loginBtn">Login</button>
                 <button class="button toggleBtn" id="theme-toggle">
                     <i id="theme-icon" class="fa-regular fa-sun"></i>
                 </button>
@@ -82,9 +118,8 @@
                 and hunt down the Michael Jackson-looking guy responsible.
             </p>
 
-            <div class="is-flex is-justify-content-center">
-                <img src="assets/images/premium_photo-1698238184346-30d7ba135959.avif" alt="Knights Fighting"
-                    class="image is-4by3" style="max-width: 300px;max-height: 200px;">
+            <div class="is-flex is-justify-content-center mainboxImg">
+                <img src="/assets/images/premium_photo-1698238184346-30d7ba135959.avif" alt="Knights Fighting">
             </div>
 
             <div class="columns is-multiline mt-1 is-tablet">
@@ -131,6 +166,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             const toggleButton = document.getElementById("theme-toggle");
             const themeIcon = document.getElementById("theme-icon");
+            const loginButton = document.querySelector(".loginBtn");
             const html = document.documentElement;
             const navbar = document.querySelector(".navbar");
             const title = document.querySelector(".title");
@@ -171,6 +207,10 @@
                 // Question Text
                 questionText.classList.toggle("has-text-white", theme === "dark");
                 questionText.classList.toggle("has-text-black", theme === "light");
+
+                // Login Button Theme Change
+                loginButton.classList.toggle("is-dark", theme === "dark");
+                loginButton.classList.toggle("is-light", theme === "light");
             }
 
             toggleButton.addEventListener("click", function () {
